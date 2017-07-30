@@ -1,9 +1,9 @@
 {
-  "name": "vue-lightbox",
+  "name": "vlightbox",
   "version": "1.0.0",
   "description": "Native Vue.js lightbox",
-  "author": "Oliver Taylor <olivertaylor18@hotmail.co.uk>",
-  "private": true,
+  "author": "Olivertaylor <olivertaylor18@hotmail.co.uk>",
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
