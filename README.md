@@ -9,7 +9,7 @@
 
 #### NPM
 ```bash
-$ npm install vue-lightbox
+$ npm install vlightbox
 ```
 
 Register the component
