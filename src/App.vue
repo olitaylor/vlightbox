@@ -9,7 +9,7 @@
 
 <script>
 import Intro from './components/Intro';
-import Lightbox from './components/Vue-Lightbox';
+import Lightbox from './components/vlightbox';
 
 export default {
   name: 'app',

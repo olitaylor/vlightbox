@@ -1,7 +1,7 @@
 <template>
   <div class="intro">
     <img src="../assets/logo.png">
-    <h1>vue-lightbox</h1>
+    <h1>vlightbox</h1>
     <h2>A native Vue.js lightbox</h2>
   </div>
 </template>
