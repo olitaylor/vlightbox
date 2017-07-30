@@ -9,13 +9,13 @@
 
 #### NPM
 ```bash
-$ npm install vue-lightbox
+$ npm install vlightbox
 ```
 
 Register the component
 
 ```js
-import lightbox from 'vue-lightbox'
+import lightbox from 'vlightbox'
 Vue.component('lightbox', vueLightbox)
 ```
 
