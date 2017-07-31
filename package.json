@@ -1,15 +1,22 @@
 {
   "name": "vlightbox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Native Vue.js lightbox",
   "author": "Olivertaylor <olivertaylor18@hotmail.co.uk>",
   "private": false,
+  "main": "component/vlightbox.js",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
+  "keywords": [
+    "vue",
+    "lightbox",
+    "native",
+    "gallery"
+  ],
   "dependencies": {
     "vue": "^2.3.3"
   },
