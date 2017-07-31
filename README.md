@@ -1,4 +1,4 @@
-# vue-lightbox
+# vlightbox
 
 > Native Vue.js lightbox
 
