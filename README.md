@@ -2,6 +2,9 @@
 
 > Native Vue.js lightbox
 
+## Demo
+[https://olitaylor.github.io/vlightbox/]
+
 ## Install
 
 ###### Vue Compatibility
