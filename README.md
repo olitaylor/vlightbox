@@ -16,7 +16,7 @@ Register the component
 
 ```js
 import lightbox from 'vlightbox'
-Vue.component('lightbox', vueLightbox)
+Vue.component('lightbox', lightbox)
 ```
 
 Basic markup should look like this
