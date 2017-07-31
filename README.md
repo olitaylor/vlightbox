@@ -1,6 +1,9 @@
-# vue-lightbox
+# vlightbox
 
 > Native Vue.js lightbox
+
+## Demo
+https://olitaylor.github.io/vlightbox/
 
 ## Install
 
@@ -16,7 +19,7 @@ Register the component
 
 ```js
 import lightbox from 'vlightbox'
-Vue.component('lightbox', vueLightbox)
+Vue.component('lightbox', lightbox)
 ```
 
 Basic markup should look like this
