@@ -48,7 +48,7 @@ Other options are;
 Remove all styles to the image gallery, overlay not included
 - Default: false
 ```js
-:resetStyles="false" 
+:resetstyles="false" 
 ```
 
 Add h1 with title above gallery

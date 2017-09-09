@@ -22,7 +22,7 @@ describe('ExampleComponent', () => {
         
         document.body.innerHTML = `
         <div id="app">
-            <lightbox :resetStyles="false" title="Demo Gallery" :images="images" :loop="true" :nav="true" :caption="true"></lightbox>
+            <lightbox :resetstyles="false" title="Demo Gallery" :images="images" :loop="true" :nav="true" :caption="true"></lightbox>
         </div>
         `;
 

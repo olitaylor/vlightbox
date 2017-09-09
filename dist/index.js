@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["vue-tabs"] = factory();
+		exports["vlightbox"] = factory();
 	else
-		root["vue-tabs"] = factory();
+		root["vlightbox"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,7 +91,7 @@ var Component = __webpack_require__(5)(
   /* styles */
   injectStyle,
   /* scopeId */
-  null,
+  "data-v-1cb22c1e",
   /* moduleIdentifier (server only) */
   null
 )
@@ -104,35 +104,105 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    } else if (typeof exports !== "undefined") {
-        factory(exports);
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod.exports);
-        global.ExampleComponent = mod.exports;
-    }
-})(this, function (exports) {
-    "use strict";
-
-    Object.defineProperty(exports, "__esModule", {
-        value: true
-    });
-    exports.default = {
-        props: {},
-
-        data: function data() {
-            return {};
-        },
-
-        computed: {}
+  } else if (typeof exports !== "undefined") {
+    factory(exports);
+  } else {
+    var mod = {
+      exports: {}
     };
+    factory(mod.exports);
+    global.Lightbox = mod.exports;
+  }
+})(this, function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = {
+    name: 'lightbox',
+    props: {
+      resetStyles: {
+        default: false,
+        type: Boolean
+      },
+      title: {
+        type: String
+      },
+      images: {
+        type: Array
+      },
+      loop: {
+        default: true,
+        type: Boolean
+      },
+      nav: {
+        default: true,
+        type: Boolean
+      },
+      caption: {
+        deftault: true,
+        type: Boolean
+      }
+    },
+    data: function data() {
+      return {
+        currentImage: null,
+        overlayActive: false
+      };
+    },
+    mounted: function mounted() {
+      var self = this;
+      window.addEventListener('keydown', function (e) {
+        self.handleGlobalKeyDown(e);
+      });
+    },
+
+    methods: {
+      clickImage: function clickImage(index) {
+        this.currentImage = index;
+        this.overlayActive = true;
+      },
+      nextImage: function nextImage() {
+        if (this.currentImage === this.images.length - 1) {
+          if (this.loop) {
+            this.currentImage = 0;
+          }
+        } else {
+          this.currentImage += 1;
+        }
+      },
+      prevImage: function prevImage() {
+        if (this.currentImage === 0) {
+          if (this.loop) {
+            this.currentImage = this.images.length - 1;
+          }
+        } else {
+          this.currentImage -= 1;
+        }
+      },
+      closeOverlay: function closeOverlay() {
+        this.overlayActive = false;
+      },
+      handleGlobalKeyDown: function handleGlobalKeyDown(e) {
+        switch (e.keyCode) {
+          case 37:
+            this.prevImage();break;
+          case 39:
+            this.nextImage();break;
+          case 27:
+            this.closeOverlay();break;
+          default:
+            break;
+        }
+      }
+    }
+  };
 });
 
 /***/ }),
@@ -146,24 +216,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   } else if (typeof exports !== "undefined") {
-    factory(exports, require('./components/ExampleComponent'));
+    factory(exports, require('./components/Lightbox'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.ExampleComponent);
+    factory(mod.exports, global.Lightbox);
     global.index = mod.exports;
   }
-})(this, function (exports, _ExampleComponent) {
+})(this, function (exports, _Lightbox) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'ExampleComponent', {
+  Object.defineProperty(exports, 'Lightbox', {
     enumerable: true,
     get: function () {
-      return _interopRequireDefault(_ExampleComponent).default;
+      return _interopRequireDefault(_Lightbox).default;
     }
   });
 
@@ -183,7 +253,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".vue-lightbox ul[data-v-1cb22c1e]{list-style:none;margin:0 auto;padding:0;display:block;max-width:780px;text-align:center}.vue-lightbox ul li[data-v-1cb22c1e]{display:inline-block;padding:5px;background:#f8f8ff;margin:10px}.vue-lightbox ul li img[data-v-1cb22c1e]{display:block;width:200px}.overlay[data-v-1cb22c1e]{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.9);text-align:center;padding:20px;box-sizing:border-box}.overlay .holder[data-v-1cb22c1e]{max-width:600px;margin:0 auto;position:relative;max-height:100vh}.overlay .holder img[data-v-1cb22c1e]{width:100%;max-width:600px;cursor:pointer;box-sizing:border-box;display:block;max-height:100vh}.overlay .holder p[data-v-1cb22c1e]{color:#fff;margin:0;background-color:rgba(0,0,0,.4);position:absolute;bottom:0;left:0;right:0;box-sizing:border-box;padding:10px}.overlay .holder .nav[data-v-1cb22c1e]{max-width:600px;margin:0 auto;font-size:14px}.overlay .holder .nav a[data-v-1cb22c1e]{color:#fff;opacity:.3;-webkit-user-select:none;cursor:pointer}.overlay .holder .nav a[data-v-1cb22c1e]:hover{opacity:1}.overlay .holder .nav .next[data-v-1cb22c1e],.overlay .holder .nav .prev[data-v-1cb22c1e]{position:absolute;top:0;bottom:0;padding:10px;width:50%;box-sizing:border-box;font-size:40px}.overlay .holder .nav .next span[data-v-1cb22c1e],.overlay .holder .nav .prev span[data-v-1cb22c1e]{top:50%;transform:translateY(50%);position:relative}.overlay .holder .nav .next[data-v-1cb22c1e]{right:0;text-align:right}.overlay .holder .nav .prev[data-v-1cb22c1e]{left:0;text-align:left}.overlay .holder .nav .close[data-v-1cb22c1e]{right:10px;top:0;font-size:30px;opacity:.6;z-index:1000000;position:absolute;text-align:left;box-sizing:border-box}.overlay .holder .nav .close[data-v-1cb22c1e]:hover{opacity:1}", ""]);
 
 // exports
 
@@ -372,7 +442,63 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._v("\n    I am an example component\n")])
+  return _c('div', {
+    class: {
+      'vue-lightbox': !_vm.resetStyles
+    }
+  }, [(_vm.title) ? _c('h1', [_vm._v(_vm._s(_vm.title))]) : _vm._e(), _vm._v(" "), _c('ul', _vm._l((_vm.images), function(image, index) {
+    return _c('li', [_c('img', {
+      attrs: {
+        "src": image.src,
+        "alt": image.caption
+      },
+      on: {
+        "click": function($event) {
+          _vm.clickImage(index)
+        }
+      }
+    })])
+  })), _vm._v(" "), (_vm.overlayActive) ? _c('div', {
+    staticClass: "overlay",
+    on: {
+      "click": function($event) {
+        if ($event.target !== $event.currentTarget) { return null; }
+        _vm.closeOverlay($event)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "holder"
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.images[_vm.currentImage].src
+    }
+  }), _vm._v(" "), (_vm.nav) ? _c('div', {
+    staticClass: "nav"
+  }, [_c('a', {
+    staticClass: "close",
+    attrs: {
+      "nohref": ""
+    },
+    on: {
+      "click": _vm.closeOverlay
+    }
+  }, [_c('span', [_vm._v("×")])]), _vm._v(" "), _c('a', {
+    staticClass: "prev",
+    attrs: {
+      "nohref": ""
+    },
+    on: {
+      "click": _vm.prevImage
+    }
+  }, [_c('span', [_vm._v("←")])]), _vm._v(" "), _c('a', {
+    staticClass: "next",
+    attrs: {
+      "nohref": ""
+    },
+    on: {
+      "click": _vm.nextImage
+    }
+  }, [_c('span', [_vm._v("→")])])]) : _vm._e(), _vm._v(" "), (_vm.caption && _vm.images[_vm.currentImage].caption) ? _c('p', [_vm._v(_vm._s(_vm.images[_vm.currentImage].caption))]) : _vm._e()])]) : _vm._e()])
 },staticRenderFns: []}
 
 /***/ }),
@@ -386,7 +512,7 @@ var content = __webpack_require__(3);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(8)("e57f2a9a", content, true);
+var update = __webpack_require__(8)("5595dfbc", content, true);
 
 /***/ }),
 /* 8 */

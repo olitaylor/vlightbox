@@ -6,7 +6,7 @@ exports[`ExampleComponent can accept child gallery item 1`] = `
         "
 `;
 
-exports[`ExampleComponent can accept empty images object 1`] = `
+exports[`ExampleComponent can accept empty images array 1`] = `
 "
         <div id=\\"app\\"><div class=\\"vue-lightbox\\"><!----> <ul></ul> <!----></div></div>
         "
@@ -15,5 +15,11 @@ exports[`ExampleComponent can accept empty images object 1`] = `
 exports[`ExampleComponent can mount 1`] = `
 "
             <div id=\\"app\\"><div class=\\"vue-lightbox\\"><!----> <ul></ul> <!----></div></div>
+        "
+`;
+
+exports[`ExampleComponent check all props at once 1`] = `
+"
+        <div id=\\"app\\"><div class=\\"vue-lightbox\\"><h1>Demo Gallery</h1> <ul><li><img src=\\"https://unsplash.it/500\\" alt=\\"Image 1\\"></li><li><img src=\\"https://unsplash.it/501\\"></li></ul> <!----></div></div>
         "
 `;

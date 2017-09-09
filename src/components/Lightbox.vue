@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'vue-lightbox' : !resetStyles }">
+  <div :class="{ 'vue-lightbox' : !resetstyles }">
     <h1 v-if="title">{{ title }}</h1>
     <ul>
       <li v-for="(image, index) in images">
@@ -25,7 +25,7 @@
 export default {
   name: 'lightbox',
   props: {
-    resetStyles: {
+    resetstyles: {
       default: false,
       type: Boolean,
     },
