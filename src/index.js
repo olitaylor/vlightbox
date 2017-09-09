@@ -1,5 +1,9 @@
 import Lightbox from './components/Lightbox';
 
 export default {
-    Lightbox
+    install(Vue) {
+        Vue.component('Lightbox', Lightbox);
+    }
 };
+
+export { Lightbox };
