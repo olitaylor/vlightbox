@@ -6,7 +6,7 @@
           <img :src="image.src" :alt="image.caption" @click="clickImage(index)">
       </li>       
      </ul>
-     <div class="overlay" v-if="overlayActive" @click.self="closeOverlay">
+     <div class="lightbox-overlay" v-if="overlayActive" @click.self="closeOverlay">
       <div class="holder">
         <img :src="images[currentImage].src"/>
         <div class="nav" v-if="nav">
@@ -120,7 +120,7 @@ export default {
 	}
 }
 
-.overlay {
+.lightbox-overlay {
 	width: 100%;
 	height: 100%;
 	position: fixed;

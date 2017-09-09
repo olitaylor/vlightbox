@@ -210,38 +210,42 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require('./components/Lightbox'));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Lightbox);
-    global.index = mod.exports;
-  }
-})(this, function (exports, _Lightbox) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'Lightbox', {
-    enumerable: true,
-    get: function () {
-      return _interopRequireDefault(_Lightbox).default;
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require('./components/Lightbox'));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.Lightbox);
+        global.index = mod.exports;
     }
-  });
+})(this, function (exports, _Lightbox) {
+    'use strict';
 
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.Lightbox = undefined;
+
+    var _Lightbox2 = _interopRequireDefault(_Lightbox);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    exports.default = {
+        install: function install(Vue) {
+            Vue.component('lightbox', _Lightbox2.default);
+        }
     };
-  }
+    exports.Lightbox = _Lightbox2.default;
 });
 
 /***/ }),
