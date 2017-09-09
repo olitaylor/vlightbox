@@ -127,7 +127,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   exports.default = {
     name: 'lightbox',
     props: {
-      resetStyles: {
+      resetstyles: {
         default: false,
         type: Boolean
       },
@@ -444,7 +444,7 @@ module.exports = function normalizeComponent (
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     class: {
-      'vue-lightbox': !_vm.resetStyles
+      'vue-lightbox': !_vm.resetstyles
     }
   }, [(_vm.title) ? _c('h1', [_vm._v(_vm._s(_vm.title))]) : _vm._e(), _vm._v(" "), _c('ul', _vm._l((_vm.images), function(image, index) {
     return _c('li', [_c('img', {
