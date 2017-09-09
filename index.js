@@ -1,1 +1,1 @@
-module.exports = require('./component/vlightbox.js')
+module.exports = require('./component/vlightbox.js').default

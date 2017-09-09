@@ -1,18 +1,17 @@
 {
   "presets": [
     ["env", {
-      "modules": false,
       "targets": {
-        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-      }
-    }],
-    "stage-2"
+        "browsers": ["last 2 versions", "safari >= 7"]
+      },
+      "modules": "umd"
+    }]
   ],
-  "plugins": ["transform-runtime"],
-  "env": {
-    "test": {
-      "presets": ["env", "stage-2"],
-      "plugins": ["istanbul"]
-    }
-  }
+  "plugins": [
+    "transform-object-rest-spread",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
 }

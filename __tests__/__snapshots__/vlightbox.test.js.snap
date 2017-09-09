@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExampleComponent can accept child gallery item 1`] = `
+"
+        <div id=\\"app\\"><div class=\\"vue-lightbox\\"><!----> <ul><li><img src=\\"https://unsplash.it/500\\" alt=\\"Image 1\\"></li><li><img src=\\"https://unsplash.it/501\\"></li></ul> <!----></div></div>
+        "
+`;
+
+exports[`ExampleComponent can accept empty images object 1`] = `
+"
+        <div id=\\"app\\"><div class=\\"vue-lightbox\\"><!----> <ul></ul> <!----></div></div>
+        "
+`;
+
+exports[`ExampleComponent can mount 1`] = `
+"
+            <div id=\\"app\\"><div class=\\"vue-lightbox\\"><!----> <ul></ul> <!----></div></div>
+        "
+`;

@@ -113,10 +113,10 @@ export default {
 		background: ghostwhite;
 		margin: 10px;
 	
-    img {
-      display: block;
-      width: 200px;
-    }
+        img {
+            display: block;
+            width: 200px;
+        }
 	}
 }
 
@@ -129,13 +129,13 @@ export default {
 	background: rgba(0,0,0,0.9);
 	text-align: center;
 	padding: 20px;
-  box-sizing: border-box;
+    box-sizing: border-box;
 	
 	.holder {
 		max-width: 600px;
 		margin: 0 auto;
 		position: relative;
-    max-height: 100vh;
+        max-height: 100vh;
 		
 		img {
 			width: 100%;
@@ -143,7 +143,7 @@ export default {
 			cursor: pointer;
 			box-sizing: border-box;
 			display: block;
-      max-height: 100vh;
+            max-height: 100vh;
 		}
 			
 		p {
