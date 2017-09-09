@@ -23,7 +23,6 @@
 <script>
 
 export default {
-  name: 'lightbox',
   props: {
     resetstyles: {
       default: false,
