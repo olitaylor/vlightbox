@@ -1,7 +1,7 @@
 import { Lightbox } from '../src';
 import Vue from 'vue/dist/vue.js';
 
-describe('ExampleComponent', () => {
+describe('Lightbox', () => {
     Vue.component('lightbox', Lightbox);
 
     beforeEach(() => {
