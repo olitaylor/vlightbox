@@ -1,6 +1,7 @@
-# vlightbox
-
 [![Build Status](https://travis-ci.org/olitaylor/vlightbox.svg?branch=master)](https://travis-ci.org/olitaylor/vlightbox)
+
+
+# vlightbox
 
 > Simple native Vue.js lightbox
 
