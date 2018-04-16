@@ -43,7 +43,7 @@ export default {
       type: Boolean,
     },
     caption: {
-      deftault: true,
+      default: true,
       type: Boolean,
     },
   },
