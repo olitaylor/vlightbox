@@ -1,11 +1,6 @@
 <template>
   <div :class="{ 'vue-lightbox' : !resetstyles }">
-    <h1 v-if="title">{{ title }}</h1>
-    <ul>
-      <li v-for="(image, index) in images">
-          <img :src="image.src" :alt="image.caption" @click="clickImage(index)">
-      </li>       
-     </ul>
+    <slot></slot>
      <div class="lightbox-overlay" v-if="overlayActive" @click.self="closeOverlay">
       <div class="holder">
         <img :src="images[currentImage].src"/>
