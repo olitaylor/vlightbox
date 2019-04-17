@@ -39,14 +39,16 @@ Basic markup should look like this
 <script>
 export default {
     data () {
-        images: [
-            {
-                id: 1,
-                src:"path/to/image"
-            },
-        ],
-        currentImageFather: null,
-        overlayActiveFather: false,
+        return {
+             images: [
+                {
+                    id: 1,
+                    src:"path/to/image"
+                },
+            ],
+            currentImageFather: null,
+            overlayActiveFather: false,
+        }
     },
     methods: {
         clickImage(index) {
