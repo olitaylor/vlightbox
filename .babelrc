@@ -1,17 +1,19 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions", "safari >= 7"]
-      },
-      "modules": "umd"
-    }]
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "safari >= 7"
+          ]
+        },
+        "modules": "auto"
+      }
+    ]
   ],
   "plugins": [
-    "transform-object-rest-spread",
-    ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": true
-    }]
+    "@babel/plugin-transform-runtime"
   ]
 }

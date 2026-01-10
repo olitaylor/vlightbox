@@ -1,91 +1,172 @@
 [![Build Status](https://travis-ci.org/olitaylor/vlightbox.svg?branch=master)](https://travis-ci.org/olitaylor/vlightbox)
 
-
 # vlightbox
 
-> Simple native Vue.js lightbox
+> Simple native Vue.js lightbox component
 
 ## Demo
 https://olitaylor.github.io/vlightbox/
 
-## Install
+---
 
-###### Vue Compatibility
-> Compatible with Vue 2.0
+## Compatibility
+
+> **Vue 2.7.x** (final Vue 2 release)
+
+> [!NOTE]
+> Vue 2 reached End of Life on December 31, 2023. This package targets Vue 2.7.16, the final stable release. For long-term support, consider migrating to Vue 3.
+
+---
+
+## Installation
 
 #### NPM
 ```bash
-$ npm install vlightbox
+npm install vlightbox
 ```
 
-Register the component
+#### Register the Component
 
+**Global Registration:**
 ```js
+import Vue from 'vue';
 import lightbox from 'vlightbox';
+
 Vue.use(lightbox);
 ```
 
-Basic markup should look like this
+**Local Registration:**
+```js
+import { Lightbox } from 'vlightbox';
+
+export default {
+  components: {
+    Lightbox
+  }
+}
+```
+
+**TypeScript:**
+```typescript
+import { Lightbox, LightboxImage } from 'vlightbox';
+
+const images: LightboxImage[] = [
+  { id: 1, src: '/path/to/image.jpg', caption: 'My caption' }
+];
+```
+
+---
+
+## Usage
 
 ```html
-<lightbox :currentImage="currentImageFather"
-          :overlayActive="overlayActiveFather"
-          >
-          <div v-for="(image, index) in images" :key="image.id">
-                <img src="image.src" v-on:click="clickImage(index)">
-          </div>
-</lightbox>
+<template>
+  <lightbox 
+    :images="images"
+    :currentImage.sync="currentImage"
+    :overlayActive.sync="overlayActive"
+  >
+    <div v-for="(image, index) in images" :key="image.id">
+      <img :src="image.src" @click="openLightbox(index)">
+    </div>
+  </lightbox>
+</template>
 
 <script>
 export default {
-    data () {
-        return {
-             images: [
-                {
-                    id: 1,
-                    src:"path/to/image"
-                },
-            ],
-            currentImageFather: null,
-            overlayActiveFather: false,
-        }
-    },
-    methods: {
-        clickImage(index) {
-            this.currentImageFather = index
-            this.overlayActiveFather = true
-        }
+  data() {
+    return {
+      images: [
+        { id: 1, src: 'path/to/image1.jpg', caption: 'First image' },
+        { id: 2, src: 'path/to/image2.jpg', caption: 'Second image' },
+        { id: 3, src: 'path/to/image3.jpg' }
+      ],
+      currentImage: 0,
+      overlayActive: false
     }
+  },
+  methods: {
+    openLightbox(index) {
+      this.currentImage = index;
+      this.overlayActive = true;
+    }
+  }
 }
 </script>
 ```
 
+---
 
+## Props
 
-Other options are;
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `images` | `Array` | `[]` | Array of image objects with `src` and optional `caption` |
+| `currentImage` | `Number` | `0` | Index of the currently displayed image (supports `.sync`) |
+| `overlayActive` | `Boolean` | `false` | Whether the lightbox overlay is visible (supports `.sync`) |
+| `loop` | `Boolean` | `true` | Loop back to first/last image at gallery ends |
+| `nav` | `Boolean` | `true` | Show next, prev, and close buttons |
+| `caption` | `Boolean` | `true` | Display image captions |
+| `resetstyles` | `Boolean` | `false` | Remove default gallery styling (overlay unaffected) |
 
-Remove all styles to the image gallery, overlay not included
-- Default: false
-```js
-:resetstyles="false" 
+---
+
+## Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `update:currentImage` | `Number` | Emitted when navigating between images |
+| `update:overlayActive` | `Boolean` | Emitted when overlay opens/closes |
+| `close` | - | Emitted when the lightbox is closed |
+
+---
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `←` Left Arrow | Previous image |
+| `→` Right Arrow | Next image |
+| `Esc` | Close lightbox |
+
+---
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm start
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
 ```
 
-Loop back to the first image when at the end of the gallery
-- Default: true
-```js
-:loop="true" 
-```
+---
 
-Show next, back and close buttons on overlay
-- Default: true
-```js
-:nav="true" 
-```
+## Changelog
 
-Show captions on images with the caption property
-- Default: true
-```js
-:caption="true"
-```
+### v2.1.0
+- **Converted to TypeScript** with full type definitions
+- **Updated to Vue 2.7.16** (final Vue 2 release)
+- **Updated build tooling**: Webpack 5, Babel 7, Jest 29
+- **Fixed memory leak**: Event listeners now properly removed on component destroy
+- **Improved prop handling**: All props now have proper types and defaults
+- **Added events**: Components now emit events for parent synchronization
+- **Security updates**: All dependencies updated to fix known vulnerabilities
+- **Added comprehensive unit tests** with @vue/test-utils
+- **Exported `LightboxImage` interface** for TypeScript users
 
-## More features coming soon!
+### v2.0.1
+- Initial stable release for Vue 2.3+
+
+---
+
+## License
+
+MIT © [Oliver Taylor](https://github.com/olitaylor)

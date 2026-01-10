@@ -1,30 +1,48 @@
 const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 module.exports = merge(require('./webpack.base'), {
+    mode: 'production',
     context: __dirname,
 
     entry: {
-        'index': './src/index.js',
-        'index.min': './src/index.js',
+        'index': './src/index.ts',
+        'index.min': './src/index.ts',
     },
 
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
-        library: 'vlightbox',
-        libraryTarget: 'umd',
+        library: {
+            name: 'vlightbox',
+            type: 'umd',
+            export: 'default',
+        },
+        globalObject: 'this',
     },
 
-    externals: [
-         'vue',
-    ],
+    externals: {
+        vue: {
+            commonjs: 'vue',
+            commonjs2: 'vue',
+            amd: 'vue',
+            root: 'Vue'
+        }
+    },
 
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            include: /\.min\.js$/,
-            minimize: true,
-        }),
-    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+            (compiler) => {
+                const TerserPlugin = require('terser-webpack-plugin');
+                new TerserPlugin({
+                    test: /\.min\.js$/,
+                    terserOptions: {
+                        compress: true,
+                        mangle: true,
+                    },
+                }).apply(compiler);
+            },
+        ],
+    },
 });
