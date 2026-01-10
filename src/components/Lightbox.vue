@@ -5,13 +5,13 @@
       <div class="holder">
         <img :src="images[currentImage].src">
         <div class="nav" v-if="nav">
-          <a class="close" nohref @click="closeOverlay">
+          <a class="close" @click="closeOverlay">
             <span>&times;</span>
           </a>
-          <a class="prev" nohref @click="prevImage">
+          <a class="prev" @click="prevImage">
             <span>&#8592;</span>
           </a>
-          <a class="next" nohref @click="nextImage">
+          <a class="next" @click="nextImage">
             <span>&#8594;</span>
           </a>
         </div>
@@ -21,73 +21,115 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue, { PropType } from 'vue';
+
+export interface LightboxImage {
+  id?: number | string;
+  src: string;
+  caption?: string;
+}
+
+export default Vue.extend({
+  name: 'Lightbox',
+
   props: {
     resetstyles: {
-      default: false,
-      type: Boolean
+      type: Boolean as PropType<boolean>,
+      default: false
     },
     title: {
-      type: String
+      type: String as PropType<string>,
+      default: ''
     },
     images: {
-      type: Array
+      type: Array as PropType<LightboxImage[]>,
+      default: (): LightboxImage[] => []
     },
     loop: {
-      default: true,
-      type: Boolean
+      type: Boolean as PropType<boolean>,
+      default: true
     },
     nav: {
-      default: true,
-      type: Boolean
+      type: Boolean as PropType<boolean>,
+      default: true
     },
     caption: {
-      default: true,
-      type: Boolean
+      type: Boolean as PropType<boolean>,
+      default: true
     },
-    currentImage: null,
-    overlayActive: false
+    currentImage: {
+      type: Number as PropType<number>,
+      default: 0
+    },
+    overlayActive: {
+      type: Boolean as PropType<boolean>,
+      default: false
+    }
   },
 
-  mounted() {
-    const self = this;
-    window.addEventListener("keydown", e => {
-      self.handleGlobalKeyDown(e);
-    });
+  data() {
+    return {
+      _keydownHandler: null as ((e: KeyboardEvent) => void) | null
+    };
   },
+
+  mounted(): void {
+    this._keydownHandler = (e: KeyboardEvent): void => {
+      this.handleGlobalKeyDown(e);
+    };
+    window.addEventListener('keydown', this._keydownHandler);
+  },
+
+  beforeDestroy(): void {
+    if (this._keydownHandler) {
+      window.removeEventListener('keydown', this._keydownHandler);
+    }
+  },
+
   methods: {
-
-    nextImage() {
+    nextImage(): void {
+      let newIndex: number;
       if (this.currentImage === this.images.length - 1) {
         if (this.loop) {
-          this.currentImage = 0;
+          newIndex = 0;
+        } else {
+          return;
         }
       } else {
-        this.currentImage += 1;
+        newIndex = this.currentImage + 1;
       }
+      this.$emit('update:currentImage', newIndex);
     },
-    prevImage() {
+
+    prevImage(): void {
+      let newIndex: number;
       if (this.currentImage === 0) {
         if (this.loop) {
-          this.currentImage = this.images.length - 1;
+          newIndex = this.images.length - 1;
+        } else {
+          return;
         }
       } else {
-        this.currentImage -= 1;
+        newIndex = this.currentImage - 1;
       }
+      this.$emit('update:currentImage', newIndex);
     },
-    closeOverlay() {
-      this.overlayActive = false;
+
+    closeOverlay(): void {
+      this.$emit('update:overlayActive', false);
+      this.$emit('close');
     },
-    handleGlobalKeyDown(e) {
+
+    handleGlobalKeyDown(e: KeyboardEvent): void {
       switch (e.keyCode) {
-        case 37:
+        case 37: // Left arrow
           this.prevImage();
           break;
-        case 39:
+        case 39: // Right arrow
           this.nextImage();
           break;
-        case 27:
+        case 27: // Escape
           this.closeOverlay();
           break;
         default:
@@ -95,7 +137,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style scoped lang="scss">
