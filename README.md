@@ -101,13 +101,26 @@ export default {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `images` | `Array` | `[]` | Array of image objects with `src` and optional `caption` |
+| `images` | `Array` | `[]` | Array of image objects with `src` and optional `caption`, `downloadable`, `downloadUrl` |
 | `currentImage` | `Number` | `0` | Index of the currently displayed image (supports `.sync`) |
 | `overlayActive` | `Boolean` | `false` | Whether the lightbox overlay is visible (supports `.sync`) |
 | `loop` | `Boolean` | `true` | Loop back to first/last image at gallery ends |
 | `nav` | `Boolean` | `true` | Show next, prev, and close buttons |
 | `caption` | `Boolean` | `true` | Display image captions |
+| `download` | `Boolean` | `false` | Show download button for images |
 | `resetstyles` | `Boolean` | `false` | Remove default gallery styling (overlay unaffected) |
+
+---
+
+## Image Object Properties
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `src` | `String` | ✓ | URL of the image |
+| `id` | `String/Number` | | Unique identifier |
+| `caption` | `String` | | Caption text for the image |
+| `downloadable` | `Boolean` | | Per-image download override (takes precedence over global `download` prop) |
+| `downloadUrl` | `String` | | Alternative URL for downloading (e.g., high-res version) |
 
 ---
 
@@ -118,6 +131,7 @@ export default {
 | `update:currentImage` | `Number` | Emitted when navigating between images |
 | `update:overlayActive` | `Boolean` | Emitted when overlay opens/closes |
 | `close` | - | Emitted when the lightbox is closed |
+| `download` | `{ index, image }` | Emitted when download button is clicked |
 
 ---
 
@@ -146,6 +160,19 @@ npm test
 # Build for production
 npm run build
 ```
+
+---
+
+## Security Considerations
+
+When running `npm audit`, you may see vulnerabilities reported in Vue 2 ecosystem packages (`vue`, `vue-template-compiler`, `postcss`, `@vue/test-utils`). These are **development-only dependencies** and do not affect consumers of this package:
+
+- ⚠️ These vulnerabilities exist in Vue 2 core, which reached EOL on December 31, 2023
+- ✅ The published npm package does **not** include these dev dependencies
+- ✅ Users installing `vlightbox` via npm only receive the compiled bundle
+- ℹ️ Fixing these would require migrating to Vue 3 (breaking change)
+
+If your project requires zero vulnerabilities, consider using a Vue 3-compatible lightbox alternative.
 
 ---
 

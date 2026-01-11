@@ -8,6 +8,20 @@
           <a class="close" @click="closeOverlay">
             <span>&times;</span>
           </a>
+          <a 
+            v-if="showDownloadButton" 
+            class="download" 
+            @click="downloadImage"
+            title="Download image"
+          >
+            <span class="download-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </span>
+          </a>
           <a class="prev" @click="prevImage">
             <span>&#8592;</span>
           </a>
@@ -25,9 +39,16 @@
 import Vue, { PropType } from 'vue';
 
 export interface LightboxImage {
+  /** Unique identifier for the image */
   id?: number | string;
+  /** Path or URL to the image */
   src: string;
+  /** Optional caption to display below the image */
   caption?: string;
+  /** Whether this specific image can be downloaded (overrides global download prop) */
+  downloadable?: boolean;
+  /** Optional different URL for downloading (e.g., high-res version) */
+  downloadUrl?: string;
 }
 
 export default Vue.extend({
@@ -58,6 +79,10 @@ export default Vue.extend({
       type: Boolean as PropType<boolean>,
       default: true
     },
+    download: {
+      type: Boolean as PropType<boolean>,
+      default: false
+    },
     currentImage: {
       type: Number as PropType<number>,
       default: 0
@@ -72,6 +97,35 @@ export default Vue.extend({
     return {
       _keydownHandler: null as ((e: KeyboardEvent) => void) | null
     };
+  },
+
+  computed: {
+    /**
+     * Determines if download button should be shown for current image
+     * Per-image downloadable property takes precedence over global download prop
+     */
+    showDownloadButton(): boolean {
+      const currentImg = this.images[this.currentImage];
+      if (!currentImg) return false;
+      
+      // If image has explicit downloadable property, use it
+      if (typeof currentImg.downloadable === 'boolean') {
+        return currentImg.downloadable;
+      }
+      
+      // Otherwise use global download prop
+      return this.download;
+    },
+
+    /**
+     * Gets the download URL for current image
+     * Uses downloadUrl if specified, otherwise falls back to src
+     */
+    currentDownloadUrl(): string {
+      const currentImg = this.images[this.currentImage];
+      if (!currentImg) return '';
+      return currentImg.downloadUrl || currentImg.src;
+    }
   },
 
   mounted(): void {
@@ -121,6 +175,43 @@ export default Vue.extend({
       this.$emit('close');
     },
 
+    /**
+     * Downloads the current image
+     * Creates a temporary anchor element to trigger the download
+     */
+    downloadImage(): void {
+      const url = this.currentDownloadUrl;
+      if (!url) return;
+
+      // Emit download event for tracking/analytics
+      this.$emit('download', {
+        index: this.currentImage,
+        image: this.images[this.currentImage]
+      });
+
+      // Create temporary link and trigger download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = this.getFilenameFromUrl(url);
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+
+    /**
+     * Extracts filename from URL for download
+     */
+    getFilenameFromUrl(url: string): string {
+      try {
+        const pathname = new URL(url, window.location.origin).pathname;
+        const filename = pathname.split('/').pop() || 'image';
+        return filename;
+      } catch {
+        return 'image';
+      }
+    },
+
     handleGlobalKeyDown(e: KeyboardEvent): void {
       switch (e.keyCode) {
         case 37: // Left arrow
@@ -168,6 +259,7 @@ export default Vue.extend({
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
   background: rgba(0, 0, 0, 0.9);
   text-align: center;
   padding: 20px;
@@ -241,6 +333,7 @@ export default Vue.extend({
         left: 0;
         text-align: left;
       }
+
       .close {
         right: 10px;
         top: 0;
@@ -253,6 +346,34 @@ export default Vue.extend({
 
         &:hover {
           opacity: 1;
+        }
+      }
+
+      .download {
+        left: 10px;
+        top: 0;
+        opacity: 0.6;
+        z-index: 1000000;
+        position: absolute;
+        text-align: left;
+        box-sizing: border-box;
+        padding: 2px;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+          opacity: 1;
+          transform: translateY(2px);
+        }
+
+        .download-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            width: 24px;
+            height: 24px;
+          }
         }
       }
     }

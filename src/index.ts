@@ -1,4 +1,4 @@
-import { PluginObject, VueConstructor } from 'vue';
+import { PluginObject } from 'vue';
 import Lightbox from './components/Lightbox.vue';
 
 /**
@@ -11,10 +11,14 @@ export interface LightboxImage {
     src: string;
     /** Optional caption to display below the image */
     caption?: string;
+    /** Whether this specific image can be downloaded (overrides global download prop) */
+    downloadable?: boolean;
+    /** Optional different URL for downloading (e.g., high-res version) */
+    downloadUrl?: string;
 }
 
 export interface VLightboxPlugin extends PluginObject<never> {
-    install: (Vue: VueConstructor) => void;
+    install: (Vue: any) => void;
 }
 
 const plugin: VLightboxPlugin = {
