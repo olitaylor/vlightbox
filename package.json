@@ -1,6 +1,6 @@
 {
   "name": "vlightbox",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Native Vue.js lightbox",
   "author": "Olivertaylor <olivertaylor18@hotmail.co.uk>",
   "main": "dist/index.js",
