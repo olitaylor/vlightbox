@@ -101,13 +101,26 @@ export default {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `images` | `Array` | `[]` | Array of image objects with `src` and optional `caption` |
+| `images` | `Array` | `[]` | Array of image objects with `src` and optional `caption`, `downloadable`, `downloadUrl` |
 | `currentImage` | `Number` | `0` | Index of the currently displayed image (supports `.sync`) |
 | `overlayActive` | `Boolean` | `false` | Whether the lightbox overlay is visible (supports `.sync`) |
 | `loop` | `Boolean` | `true` | Loop back to first/last image at gallery ends |
 | `nav` | `Boolean` | `true` | Show next, prev, and close buttons |
 | `caption` | `Boolean` | `true` | Display image captions |
+| `download` | `Boolean` | `false` | Show download button for images |
 | `resetstyles` | `Boolean` | `false` | Remove default gallery styling (overlay unaffected) |
+
+---
+
+## Image Object Properties
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `src` | `String` | ✓ | URL of the image |
+| `id` | `String/Number` | | Unique identifier |
+| `caption` | `String` | | Caption text for the image |
+| `downloadable` | `Boolean` | | Per-image download override (takes precedence over global `download` prop) |
+| `downloadUrl` | `String` | | Alternative URL for downloading (e.g., high-res version) |
 
 ---
 
@@ -118,6 +131,7 @@ export default {
 | `update:currentImage` | `Number` | Emitted when navigating between images |
 | `update:overlayActive` | `Boolean` | Emitted when overlay opens/closes |
 | `close` | - | Emitted when the lightbox is closed |
+| `download` | `{ index, image }` | Emitted when download button is clicked |
 
 ---
 

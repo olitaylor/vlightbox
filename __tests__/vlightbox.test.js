@@ -217,4 +217,102 @@ describe('Lightbox Component', () => {
             expect(wrapper.find('.test-slot-content').exists()).toBe(true);
         });
     });
+
+    describe('Download Feature', () => {
+        it('does not show download button by default', () => {
+            const wrapper = createWrapper();
+            expect(wrapper.find('.download').exists()).toBe(false);
+        });
+
+        it('shows download button when download prop is true', () => {
+            const wrapper = createWrapper({ download: true });
+            expect(wrapper.find('.download').exists()).toBe(true);
+        });
+
+        it('hides download button when download prop is false', () => {
+            const wrapper = createWrapper({ download: false });
+            expect(wrapper.find('.download').exists()).toBe(false);
+        });
+
+        it('shows download button for specific image with downloadable: true', () => {
+            const imagesWithDownload = [
+                { id: 1, src: '/path/to/image1.jpg', downloadable: true },
+                { id: 2, src: '/path/to/image2.jpg', downloadable: false }
+            ];
+            const wrapper = shallowMount(Lightbox, {
+                propsData: {
+                    images: imagesWithDownload,
+                    currentImage: 0,
+                    overlayActive: true,
+                    download: false // global is false
+                }
+            });
+            // Per-image downloadable overrides global
+            expect(wrapper.find('.download').exists()).toBe(true);
+        });
+
+        it('hides download button for image with downloadable: false even if global is true', () => {
+            const imagesWithDownload = [
+                { id: 1, src: '/path/to/image1.jpg', downloadable: false }
+            ];
+            const wrapper = shallowMount(Lightbox, {
+                propsData: {
+                    images: imagesWithDownload,
+                    currentImage: 0,
+                    overlayActive: true,
+                    download: true // global is true
+                }
+            });
+            expect(wrapper.find('.download').exists()).toBe(false);
+        });
+
+        it('emits download event when download button is clicked', async () => {
+            const wrapper = createWrapper({ download: true });
+
+            // Mock createElement to prevent actual download
+            const originalCreateElement = document.createElement.bind(document);
+            document.createElement = jest.fn((tag) => {
+                const el = originalCreateElement(tag);
+                if (tag === 'a') {
+                    el.click = jest.fn();
+                }
+                return el;
+            });
+
+            await wrapper.find('.download').trigger('click');
+
+            expect(wrapper.emitted('download')).toBeTruthy();
+            expect(wrapper.emitted('download')[0][0]).toEqual({
+                index: 0,
+                image: mockImages[0]
+            });
+
+            document.createElement = originalCreateElement;
+        });
+
+        it('uses downloadUrl if specified', () => {
+            const imagesWithDownloadUrl = [
+                { id: 1, src: '/path/to/image1.jpg', downloadUrl: '/high-res/image1.jpg' }
+            ];
+            const wrapper = shallowMount(Lightbox, {
+                propsData: {
+                    images: imagesWithDownloadUrl,
+                    currentImage: 0,
+                    overlayActive: true,
+                    download: true
+                }
+            });
+            expect(wrapper.vm.currentDownloadUrl).toBe('/high-res/image1.jpg');
+        });
+
+        it('falls back to src if downloadUrl not specified', () => {
+            const wrapper = createWrapper({ download: true });
+            expect(wrapper.vm.currentDownloadUrl).toBe('/path/to/image1.jpg');
+        });
+
+        it('has default download prop value of false', () => {
+            const wrapper = createWrapper();
+            expect(wrapper.props('download')).toBe(false);
+        });
+    });
 });

@@ -10,6 +10,7 @@
     "start": "webpack serve --config docs/webpack.config.js",
     "build": "rm -rf dist && npm run build:types && NODE_ENV=production webpack",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly",
+    "build:docs": "webpack --config docs/webpack.config.js --mode production",
     "lint": "eslint --ext .js,.ts,.vue --fix src __tests__; exit 0",
     "prepublishOnly": "npm run test && npm run build",
     "test": "jest"
