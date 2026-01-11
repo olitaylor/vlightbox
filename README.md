@@ -163,6 +163,19 @@ npm run build
 
 ---
 
+## Security Considerations
+
+When running `npm audit`, you may see vulnerabilities reported in Vue 2 ecosystem packages (`vue`, `vue-template-compiler`, `postcss`, `@vue/test-utils`). These are **development-only dependencies** and do not affect consumers of this package:
+
+- ⚠️ These vulnerabilities exist in Vue 2 core, which reached EOL on December 31, 2023
+- ✅ The published npm package does **not** include these dev dependencies
+- ✅ Users installing `vlightbox` via npm only receive the compiled bundle
+- ℹ️ Fixing these would require migrating to Vue 3 (breaking change)
+
+If your project requires zero vulnerabilities, consider using a Vue 3-compatible lightbox alternative.
+
+---
+
 ## Changelog
 
 ### v2.1.0
