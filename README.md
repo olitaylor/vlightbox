@@ -178,7 +178,7 @@ If your project requires zero vulnerabilities, consider using a Vue 3-compatible
 
 ## Changelog
 
-### v2.1.0
+### v3.0.1
 - **Converted to TypeScript** with full type definitions
 - **Updated to Vue 2.7.16** (final Vue 2 release)
 - **Updated build tooling**: Webpack 5, Babel 7, Jest 29
